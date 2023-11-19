@@ -86,8 +86,36 @@ while i <= len(games):
 
 ## Задание 3
 ### Настройте на сцене Unity воспроизведение звуковых файлов, описывающих динамику изменения выбранной переменной. Например, если выбрано здоровье главного персонажа вы можете выводить сообщения, связанные с его состоянием.
-Вы можете загрузить файл сцены и ресурсами из этого репозитория, либо перейти по следующей ссылке для его скачивания: https://github.com/MAXBAF1/DA-in-GameDev-lab2/blob/main/ad-lab2.unitypackage
+На основе данных о количестве денег у игрока за игру выявил границы при которых будут воспроизводиться следующие звуки:
+- Хороший
+- Нормальный
+- Плохой
 
+Вот код описывающий это:
+```c#
+void Update()
+    {
+        if (dataSet.Count == 0) return;
+        if (dataSet["Mon_" + i] >= 1000 && statusStart == false)
+        {
+            StartCoroutine(PlaySelectAudioGood());
+            Debug.Log(dataSet["Mon_" + i]);
+        }
+        else if (dataSet["Mon_" + i] >= 500  && statusStart == false)
+        {
+            StartCoroutine(PlaySelectAudioNormal());
+            Debug.Log(dataSet["Mon_" + i]);
+        }
+        else if (dataSet["Mon_" + i] < 500  && statusStart == false)
+        {
+            StartCoroutine(PlaySelectAudioBad());
+            Debug.Log(dataSet["Mon_" + i]);
+        }
+    }
+```
+Сцена с воспроизведениями звуков:
+![image](https://github.com/MAXBAF1/DA-in-GameDev-lab2/assets/63009846/0928a007-64b4-4484-8bef-347d626fdaa9)
+Вы можете загрузить файл сцены и ресурсами из этого репозитория, либо перейти по следующей ссылке для его скачивания: https://github.com/MAXBAF1/DA-in-GameDev-lab2/blob/main/ad-lab2.unitypackage
 ## Выводы
 
 Получил навык создания начальных настроек игры и автоматической записи их в Google Sheets с использованием Python-скрипта. Кроме того, освоил метод, который позволяет Unity читать данные из этих таблиц и, основываясь на этой информации, воспроизводить звуковые эффекты или выполнять другие действия в игре.
